@@ -2,7 +2,7 @@ appnope==0.1.0
 beautifulsoup4==4.4.1
 decorator==4.0.4
 Django==1.8.6
--e git+https://github.com/skyl/django-publications@66ad17066168d2ca412da73dd82ddb0af6992179#egg=django_publications-feature_citehub-changes
+-e git+https://github.com/skyl/django-publications@ab6f8a7549a328cf6751eb7fec1de556e29cfe6d#egg=django_publications-feature_citehub-changes
 django-taggit==0.17.3
 gnureadline==6.3.3
 ipython==4.0.0
