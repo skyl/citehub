@@ -76,13 +76,15 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        options['num'] = options.get('num') or ScholarConf.MAX_PAGE_RESULTS
+        options['start'] = options.get('start') or 0
         print(options)
 
         if options.get('after') or options.get('before'):
             query.timeframe = [options.get('after'), options.get('before')]
 
         query.start = options.get('start', 0)
-        query.num_results = options.get('num', ScholarConf.MAX_PAGE_RESULTS)
+        query.num_results = options['num']
         query.words = " ".join(options['words'])
         querier.send_query(query)
 
@@ -91,7 +93,7 @@ class Command(BaseCommand):
             print()
             print()
             print(article.as_txt())
-            res = sinput('Cite? (Y/n)')
+            res = sinput('Cite? (Y/n) ')
             if res in ['Y', 'y', '']:
                 querier.get_citation_data(article)
                 pub = save_bib(article.as_citation())[0]
@@ -123,7 +125,7 @@ class Command(BaseCommand):
             before=int(sinput('Before: ') or 0) or options.get('before'),
             num=int(sinput('Num: ') or 0) or options.get('num'),
             start=(sinput('Start num: ') or 0)
-                or int((options.get('start') or 0)) + int(options.get('num'))
+                or int(options['start']) + int(options['num'])
         )
 
 
