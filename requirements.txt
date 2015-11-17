@@ -1,0 +1,17 @@
+appnope==0.1.0
+beautifulsoup4==4.4.1
+decorator==4.0.4
+Django==1.8.6
+-e git+https://github.com/skyl/django-publications@fd53564bac80149d0cbedd1824dd03765d3b4d9d#egg=django_publications-develop
+django-taggit==0.17.3
+gnureadline==6.3.3
+ipython==4.0.0
+ipython-genutils==0.1.0
+path.py==8.1.2
+pexpect==4.0.1
+pickleshare==0.5
+Pillow==3.0.0
+ptyprocess==0.5
+selenium==2.48.0
+simplegeneric==0.8.1
+traitlets==4.0.0
