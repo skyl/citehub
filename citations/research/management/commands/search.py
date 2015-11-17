@@ -2,6 +2,7 @@ import os
 import sys
 
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 
 from taggit.models import Tag, TaggedItem
 
@@ -16,9 +17,17 @@ from citations.research.scholar import (
 
 ScholarConf.MAX_PAGE_RESULTS = 1
 ScholarConf.LOG_LEVEL = 3
-print(os.environ.get('SCHOLAR_COOKIE_PATH'))
-ScholarConf.COOKIE_JAR_FILE = os.environ.get('SCHOLAR_COOKIE_PATH')
 
+# take a env variable, if present,
+# fallback to default path, if available
+# else, run without a cookie
+default_cookie_path = os.path.join(
+    settings.BASE_DIR, 'citations/research/cookies.txt')
+if not os.path.isfile(default_cookie_path):
+    default_cookie_path = None
+ScholarConf.COOKIE_JAR_FILE = os.environ.get('SCHOLAR_COOKIE_PATH', default_cookie_path)
+if not ScholarConf.COOKIE_JAR_FILE:
+    print('Warning: running without cookie file.')
 
 querier = ScholarQuerier()
 settings = ScholarSettings()
