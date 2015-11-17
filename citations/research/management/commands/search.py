@@ -1,5 +1,6 @@
 import os
 import sys
+import webbrowser
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -93,6 +94,10 @@ class Command(BaseCommand):
             print()
             print()
             print(article.as_txt())
+            res = sinput('Open in browser? (Y/n) ')
+            if res in ['Y', 'y', '']:
+                webbrowser.open(article['url'])
+
             res = sinput('Cite? (Y/n) ')
             if res in ['Y', 'y', '']:
                 querier.get_citation_data(article)
