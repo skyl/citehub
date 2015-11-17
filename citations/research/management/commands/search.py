@@ -94,9 +94,10 @@ class Command(BaseCommand):
             print()
             print()
             print(article.as_txt())
-            res = sinput('Open in browser? (Y/n) ')
-            if res in ['Y', 'y', '']:
-                webbrowser.open(article['url'])
+            if article['url']:
+                res = sinput('Open in browser? (Y/n) ')
+                if res in ['Y', 'y', '']:
+                    webbrowser.open(article['url'])
 
             res = sinput('Cite? (Y/n) ')
             if res in ['Y', 'y', '']:
