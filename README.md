@@ -6,8 +6,8 @@ from the command line and save citations into Django models. You can also use
 the admin, the django-publications template frontend or the json API (TODO)
 for various CRUD.
 
-Install
--------
+Quickstart
+----------
 
 With Python3 already installed.
 
