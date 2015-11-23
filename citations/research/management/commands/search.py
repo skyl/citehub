@@ -16,7 +16,6 @@ if sys.version_info[0] < 3:
 from citations.research.scholar import (
     SearchScholarQuery, ScholarQuerier, ScholarSettings, ScholarConf)
 
-ScholarConf.MAX_PAGE_RESULTS = 1
 ScholarConf.LOG_LEVEL = 3
 
 # take a env variable, if present,
@@ -77,7 +76,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        options['num'] = options.get('num') or ScholarConf.MAX_PAGE_RESULTS
+        options['num'] = options.get('num') or 10
         options['start'] = options.get('start') or 0
         print(options)
 
@@ -97,12 +96,22 @@ class Command(BaseCommand):
             if article['url']:
                 res = sinput('Open in browser? (Y/n) ')
                 if res in ['Y', 'y', '']:
-                    webbrowser.open(article['url'])
+                    webbrowser.open(article['url'], new=True)
 
             res = sinput('Cite? (Y/n) ')
             if res in ['Y', 'y', '']:
                 querier.get_citation_data(article)
-                pub = save_bib(article.as_citation())[0]
+                try:
+                    pub = save_bib(article.as_citation())[0]
+                except IndexError:
+                    print('failed to save article!')
+                    print(article.as_citation())
+                    #raise Exception('your cookie may have expired!')
+                    continue
+
+                print()
+                print(pub.citekey)
+                print()
 
                 if pub._created:
                     print('Created')

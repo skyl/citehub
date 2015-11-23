@@ -489,7 +489,6 @@ class ScholarArticleParser(object):
 
     def _path2url(self, path):
         """Helper, returns full URL in case path isn't one."""
-        print(path)
         if path.startswith('http://') or path.startswith('https://'):
             return path
         if not path.startswith('/'):
@@ -1057,10 +1056,6 @@ class ScholarQuerier(object):
         """
         Helper method, sends HTTP request and returns response payload.
         """
-
-        import time
-        import random
-        time.sleep(random.uniform(1, 5))
 
         if log_msg is None:
             log_msg = 'HTTP response data follow'
